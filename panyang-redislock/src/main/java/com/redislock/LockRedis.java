@@ -71,16 +71,15 @@ public class LockRedis {
      * @Description: 释放锁
      * @Date: 17:15 2018/9/3
      */
-    public boolean unRedisLock(String identifier) {
+    public void unRedisLock(String identifier) {
         Jedis conn = null;
-        boolean flag = false;
         try {
             // 1.建立redis连接
             conn = jedisPool.getResource();
             // 3.如果value与redis中一直直接删除，否则等待超时
             if (identifier.equals(conn.get(redislocakKey))) {
                 conn.del(redislocakKey);
-                System.out.println(identifier + "解锁成功......");
+                System.out.println("释放锁成功,锁id identifier:" + identifier);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,6 +88,5 @@ public class LockRedis {
                 conn.close();
             }
         }
-        return flag;
     }
 }

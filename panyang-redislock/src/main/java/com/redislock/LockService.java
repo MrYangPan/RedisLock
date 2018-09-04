@@ -35,9 +35,6 @@ public class LockService {
 //
 //        }
         // 释放锁
-        boolean releaseLock = lockRedis.unRedisLock(identifier);
-        if (releaseLock) {
-            System.out.println(Thread.currentThread().getName() + "释放锁成功,锁id identifier:" + identifier);
-        }
+        lockRedis.unRedisLock(identifier);
     }
 }
